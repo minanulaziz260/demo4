@@ -1,1 +1,273 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Niconne&display=swap');
 
+:root {
+  --header-font: 'Bodoni Moda', serif;
+  --body-font: 'Montserrat', sans-serif;
+  --accent-font: 'Niconne', cursive;
+
+  --header-color: #3f4d38;
+  --body-color: #3f4d38;
+  --accent-color: #3f4d38;
+  --background-color: rgba(255, 255, 255, 0.8);
+
+  --button-bg: rgba(255, 255, 255, 0.8);
+  --button-color: #667B5A;
+  --button-hover-bg: #ffffff;
+  --button-hover-color: #667B5A;
+
+  --link-color: #FAF3DD;
+  --link-hover-color: #d6cdae;
+
+  --border-color: #d2bc88;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  --content-padding: 2rem;
+  --section-spacing: 4rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--body-font);
+  color: var(--body-color);
+  background-color: #FAF3DD;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Typography Helpers */
+.font-header {
+  font-family: var(--header-font) !important;
+}
+.font-body {
+  font-family: var(--body-font) !important;
+}
+.font-accent {
+  font-family: var(--accent-font) !important;
+}
+.text-header {
+  color: var(--header-color);
+}
+.text-body {
+  color: var(--body-color);
+}
+.text-accent {
+  color: var(--accent-color);
+}
+
+[data-component=description],
+[data-component=text],
+[data-component=header] {
+  white-space: pre-line;
+}
+
+/* Button Component Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--button-bg);
+  color: var(--button-color);
+}
+.btn-primary:hover {
+  background-color: var(--button-hover-bg);
+  color: var(--button-hover-color);
+}
+
+.btn-primary-gradient {
+  border-color: var(--border-color);
+  background-image: linear-gradient(to bottom, var(--button-bg), var(--button-hover-bg));
+  color: var(--button-color);
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+.btn-primary-gradient:hover {
+  transform: translateY(-2px);
+  color: var(--button-hover-color);
+  box-shadow: 0 6px 14px var(--shadow-color);
+}
+.btn-primary-gradient:active {
+  transform: translateY(1px);
+}
+
+/* Botanical Wave Animation */
+@keyframes wave {
+  0% {
+    transform: rotate(calc(var(--wave-angle, 3deg) * -1));
+  }
+  to {
+    transform: rotate(var(--wave-angle, 3deg));
+  }
+}
+
+.wave {
+  animation-name: wave;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  --wave-angle: 6deg;
+  --wave-speed: 6s;
+  animation-duration: var(--wave-speed);
+}
+
+/* Rotating Vinyl Music Player */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vinyl-disc {
+  transition: transform 0.3s ease;
+}
+
+.playing .vinyl-disc {
+  animation: spin 3s linear infinite;
+}
+
+.paused .vinyl-disc {
+  animation-play-state: paused;
+}
+
+/* Slideshow Component */
+.slideshow {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.slideshow img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  transform: translateZ(0);
+  will-change: opacity;
+}
+
+.slideshow img.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.slideshow img.previous {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Split Screen Layout (Desktop) */
+@media (min-width: 1024px) {
+  .split-layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+  }
+  
+  .split-cover {
+    width: 50%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 10;
+  }
+  
+  .split-content {
+    width: 50%;
+    position: relative;
+    background-color: var(--background-color);
+    box-shadow: -5px 0 25px rgba(0,0,0,0.08);
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 1023px) {
+  .split-layout {
+    display: block;
+    width: 100%;
+  }
+  
+  .split-cover {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  .split-content {
+    width: 100%;
+    position: relative;
+  }
+}
+
+/* Toast Notification */
+#toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.toast {
+  background: #3f4d38;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: #667B5A;
+  border-radius: 3px;
+}
